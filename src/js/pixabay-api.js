@@ -1,19 +1,24 @@
-const FETCH_KEY = '43318381-7e1885a90dd63db156a286238';
-const BASE_URL = 'https://pixabay.com/api/';
+import axios from 'axios';
 
-const getFetchData = query => {
-  const searchParams = new URLSearchParams({
-    key: FETCH_KEY,
-    q: query,
-    image_type: 'photo',
-    safesearch: true,
-  });
-  return fetch(`${BASE_URL}?${searchParams}`).then(response => {
-    if (!response.ok) {
-      throw new Error(response.status);
-    }
-    return response.json();
-  });
+const KEY = '43318381-7e1885a90dd63db156a286238';
+axios.defaults.baseURL = 'https://pixabay.com';
+
+const getFetchData = async query => {
+  try {
+    const searchParams = {
+      params: {
+        key: KEY,
+        q: query,
+        image_type: 'photo',
+        safesearch: true,
+      },
+    };
+    const axiosResponse = await axios(`/api/`, searchParams)
+
+    return axiosResponse.data;
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 export { getFetchData };
