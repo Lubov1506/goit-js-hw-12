@@ -24,7 +24,10 @@ const onFormSubmit = async e => {
   e.preventDefault();
   userQuery = form.elements.user_query.value;
   photosPage = 1;
-  if (checkEmptyInput(userQuery)) return;
+  if (checkEmptyInput(userQuery)) {
+    removeLoadMoreBtn()
+    return;
+  } 
 
   galleryList.innerHTML = '';
   const loader = document.querySelector('.loader');
