@@ -1,0 +1,24 @@
+.loader {
+  margin: 0 auto;
+  width: 48px;
+  height: 48px;
+  border: 5px dotted #4e75ff;
+  border-radius: 50%;
+  position: relative;
+  box-sizing: border-box;
+  left: 48%;
+  animation: rotation 2s linear infinite;
+  
+  display: none;
+}
+.isVisible {
+  display: inline-block;
+}
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
