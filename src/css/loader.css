@@ -6,7 +6,7 @@
   border-radius: 50%;
   position: relative;
   box-sizing: border-box;
-  left: 48%;
+
   animation: rotation 2s linear infinite;
 
   display: none;

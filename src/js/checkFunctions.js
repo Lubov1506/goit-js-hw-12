@@ -6,6 +6,7 @@ const checkEmptyData = data => {
   if (data.length === 0) {
     errorMsg();
     galleryList.innerHTML = '';
+    form.elements.user_query.value = '';
     return true;
   }
 };
