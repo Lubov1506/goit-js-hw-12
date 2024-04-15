@@ -20,14 +20,15 @@ const smoothScrollByCardHeight = galleryItem => {
     behavior: 'smooth',
   });
 };
+
 const onFormSubmit = async e => {
   e.preventDefault();
   userQuery = form.elements.user_query.value;
   photosPage = 1;
   if (checkEmptyInput(userQuery)) {
-    removeLoadMoreBtn()
+    removeLoadMoreBtn();
     return;
-  } 
+  }
 
   galleryList.innerHTML = '';
   const loader = document.querySelector('.loader');
@@ -48,9 +49,6 @@ const onFormSubmit = async e => {
 
     galleryList.innerHTML = '';
     galleryList.insertAdjacentHTML('beforeend', cards);
-
-    // const galleryItem = galleryList.querySelector('.gallery-item');
-    // window.addEventListener('scroll', smoothScrollByCardHeight(galleryItem));
 
     if (total > totalHits) {
       loadMoreBtn.classList.remove('is-hidden');
@@ -79,6 +77,8 @@ const onLoadMoreBtnClick = async () => {
       loadMoreBtn.classList.add('is-hidden');
       loadMoreBtn.removeEventListener('click', onLoadMoreBtnClick);
     }
+    const galleryItem = galleryList.querySelector('.gallery-item');
+    window.addEventListener('load', smoothScrollByCardHeight(galleryItem));
   } catch (err) {
     throw new Error(err);
   }
