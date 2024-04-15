@@ -10,6 +10,7 @@
 @import url('./loader.css');
 @import url('./gallery.css');
 @import url('./form.css');
+@import url('./load-btn.css');
 
 * {
   box-sizing: border-box;

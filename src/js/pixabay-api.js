@@ -3,7 +3,7 @@ import axios from 'axios';
 const KEY = '43318381-7e1885a90dd63db156a286238';
 axios.defaults.baseURL = 'https://pixabay.com';
 
-const getFetchData = async query => {
+const getAxiosData = async (query, photosPage) => {
   try {
     const searchParams = {
       params: {
@@ -11,14 +11,15 @@ const getFetchData = async query => {
         q: query,
         image_type: 'photo',
         safesearch: true,
+        page: photosPage,
+        per_page: 15,
       },
     };
-    const axiosResponse = await axios(`/api/`, searchParams)
-
-    return axiosResponse.data;
+    const {data} = await axios.get(`/api/`, searchParams);
+    return data;
   } catch (err) {
     throw new Error(err);
   }
 };
 
-export { getFetchData };
+export { getAxiosData };

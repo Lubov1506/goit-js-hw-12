@@ -3,7 +3,7 @@ const galleryList = document.querySelector('.gallery');
 const form = document.querySelector('form');
 
 const checkEmptyData = data => {
-  if (data.hits.length === 0) {
+  if (data.length === 0) {
     errorMsg();
     galleryList.innerHTML = '';
     return true;
@@ -12,6 +12,8 @@ const checkEmptyData = data => {
 const checkEmptyInput = userQuery => {
   if (userQuery.trim() === '') {
     warmMsg();
+    galleryList.innerHTML = '';
+    form.elements.user_query.value = '';
     form.elements.user_query.focus();
     return true;
   }
