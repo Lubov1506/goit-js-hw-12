@@ -15,7 +15,7 @@ const getAxiosData = async (query, photosPage) => {
         per_page: 15,
       },
     };
-    const {data} = await axios.get(`/api/`, searchParams);
+    const { data } = await axios.get(`/api/`, searchParams);
     return data;
   } catch (err) {
     throw new Error(err);

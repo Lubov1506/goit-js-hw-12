@@ -2,6 +2,7 @@ import { getAxiosData } from './pixabay-api';
 import { renderAllCards } from './render-functions';
 import SimpleLightbox from 'simplelightbox';
 import { checkEmptyData, checkEmptyInput } from './checkFunctions';
+import { smoothScrollByCardHeight } from './smothScroll';
 
 const galleryList = document.querySelector('.gallery');
 const form = document.querySelector('form');
@@ -12,14 +13,6 @@ let photosPage = 1;
 let gallery = new SimpleLightbox('.gallery a');
 
 const removeLoadMoreBtn = () => loadMoreBtn.classList.add('is-hidden');
-
-const smoothScrollByCardHeight = galleryItem => {
-  const itemHeight = galleryItem.getBoundingClientRect().height;
-  window.scrollBy({
-    top: itemHeight * 2,
-    behavior: 'smooth',
-  });
-};
 
 const onFormSubmit = async e => {
   e.preventDefault();
@@ -32,14 +25,14 @@ const onFormSubmit = async e => {
 
   galleryList.innerHTML = '';
   const loader = document.querySelector('.loader');
-  loader.classList.add('isVisible');
+  loader.classList.add('is-visible');
 
   try {
     const { hits, total, totalHits } = await getAxiosData(
       userQuery,
       photosPage
     );
-    loader.classList.remove('isVisible');
+    loader.classList.remove('is-visible');
     if (checkEmptyData(hits)) {
       removeLoadMoreBtn();
       return;
@@ -59,7 +52,7 @@ const onFormSubmit = async e => {
 
     gallery.refresh();
   } catch (err) {
-    loader.classList.remove('isVisible');
+    loader.classList.remove('is-visible');
     throw new Error(err);
   }
 
@@ -73,10 +66,12 @@ const onLoadMoreBtnClick = async () => {
 
     const cards = renderAllCards(hits);
     galleryList.insertAdjacentHTML('beforeend', cards);
+
     if (totalHits === photosPage) {
       loadMoreBtn.classList.add('is-hidden');
       loadMoreBtn.removeEventListener('click', onLoadMoreBtnClick);
     }
+
     const galleryItem = galleryList.querySelector('.gallery-item');
     window.addEventListener('load', smoothScrollByCardHeight(galleryItem));
   } catch (err) {
